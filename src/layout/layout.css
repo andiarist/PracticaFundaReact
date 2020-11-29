@@ -1,0 +1,13 @@
+.layout-header,
+.layout-footer {
+  max-width: 960px;
+  margin: 10px auto;
+}
+.layout-main {
+  max-width: 900px;
+  margin: 10px auto;
+}
+.layout-title {
+  background-color: lightgray;
+  padding: 5px 10px;
+}
