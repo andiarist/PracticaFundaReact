@@ -33,6 +33,7 @@ class LoginPage extends React.Component {
     const { form: credentials } = this.state;
     try {
       const loggedUser = await login(credentials);
+      console.log('loggedUser en LoginPage:', loggedUser);
       onLogin(loggedUser);
       if (loggedUser) {
         console.log('Usuario logueado ok');

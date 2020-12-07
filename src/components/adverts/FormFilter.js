@@ -1,22 +1,7 @@
 import React from 'react';
 
 import 'antd/dist/antd.css';
-import {
-  Form,
-  Select,
-  Input,
-  InputNumber,
-  Switch,
-  Radio,
-  Slider,
-  Button,
-  Upload,
-  Rate,
-  Checkbox,
-  Row,
-  Col,
-} from 'antd';
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import { Form, Select, Input, Radio, Button } from 'antd';
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -27,9 +12,9 @@ const formItemLayout = {
   },
 };
 
-const FormFilter = () => {
+const FormFilter = props => {
   return (
-    <>
+    <Form name="adverts-form" {...formItemLayout} onFinish={props.onFinish}>
       <Form.Item
         label="Nombre"
         name="name"
@@ -81,7 +66,7 @@ const FormFilter = () => {
           Buscar
         </Button>
       </Form.Item>
-    </>
+    </Form>
   );
 };
 
