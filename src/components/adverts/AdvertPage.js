@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getAdvertDetail } from '../../api/adverts';
 import { useParams, Redirect } from 'react-router-dom';
-import Layout from '../../layout/Layout';
+import Layout from '../layout/Layout';
+
+import 'antd/dist/antd.css';
+import { Image } from 'antd';
 
 function AdvertPages() {
   const [advert, setAdvert] = useState({});
@@ -23,7 +26,10 @@ function AdvertPages() {
       console.log('Dentro del if del no advert');
       return null;
     }
-    return <div>{JSON.stringify(advert)}</div>;
+    const myAdvert = advert.result;
+    console.log('myAdvert:', myAdvert);
+
+    return <div>{JSON.stringify(myAdvert)}</div>;
   };
 
   return (

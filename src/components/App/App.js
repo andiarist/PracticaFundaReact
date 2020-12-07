@@ -3,13 +3,15 @@ import Tipos from 'prop-types';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from '../login/PrivateRoute';
 
-import LoginPage from '../../components/login/LoginPage';
+import LoginPage from '../login/LoginPage';
 import AdvertsPage from '../adverts/AdvertsPage';
 import AdvertPage from '../adverts/AdvertPage';
 import NewAdvertPage from '../adverts/NewAdvertPage';
 import NotFoundPage from '../../utils/NotFoundPage';
 
-function App(initiallyLoggedUser) {
+function App(props) {
+  const { initiallyLoggedUser } = props;
+  console.log('props:', props);
   console.log('initiallyLoggedUser al principio de App: ', initiallyLoggedUser);
   const [loggedUser, setloggedUser] = useState(initiallyLoggedUser);
 

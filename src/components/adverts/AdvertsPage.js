@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getAdverts } from '../../api/adverts';
 import Advert from './Advert';
 import FormFilter from './FormFilter';
-import Layout from '../../layout/Layout';
+import Layout from '../layout/Layout';
 
 //import AdvertsFilter from './AdvertsFilter';
 
