@@ -10,11 +10,19 @@ export const getAdverts = busqueda => {
   return client.get(url);
 };
 
-export const getAdvertDetail = advertId => {
-  const url = `/apiv1/adverts/${advertId}`;
-  return client.get(url);
-};
+const urlBase = '/apiv1/adverts/';
 
-export const createNsewAdvert = () => {
+export const getAdvertDetail = advertId =>
+  client.get(`${urlBase}${advertId}`).then(response => {
+    response.result.photoUrl = `${baseURL}${response.result.photo.replace(
+      /\\/g,
+      '/',
+    )}`;
+    return response;
+  });
+
+export const deleteAdvert = advertId => client.delete(`${urlBase}${advertId}`);
+
+export const createNewAdvert = () => {
   return client.post();
 };

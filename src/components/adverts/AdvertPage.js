@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { getAdvertDetail } from '../../api/adverts';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect, useHistory } from 'react-router-dom';
+import { deleteAdvert } from '../../api/adverts';
 import Layout from '../layout/Layout';
 import Advert from './Advert';
+import placeholder from '../../assets/placeholder.png';
 
 import 'antd/dist/antd.css';
-import { Image } from 'antd';
+import { Image, Modal, Button } from 'antd';
 
 function AdvertPage() {
-  const [advert, setAdvert] = useState({});
+  const [advert, setAdvert] = useState(null);
   const [error, setError] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const advertId = useParams().id;
+  const history = useHistory();
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleDelete = () => {
+    setIsModalVisible(false);
+    deleteAdvert(advertId).then(() => {
+      console.log('dentro del then de deleteAdvert');
+      history.push('/');
+    });
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   useEffect(() => {
     getAdvertDetail(advertId)
@@ -27,15 +47,27 @@ function AdvertPage() {
       console.log('Dentro del if del no advert');
       return null;
     }
-    const myAdvert = advert.result;
-    //console.log('myAdvert:', myAdvert);
-    const { _id, name, price, sale, tags, photo } = myAdvert;
-
     //return <div>{JSON.stringify(advert.result)}</div>;
+
+    const myAdvert = advert.result;
+
+    const { _id, name, price, sale, tags, photoUrl } = myAdvert;
+
+    // console.log('url de la fotoURL:', photoUrl);
     return (
       <div>
         <Advert key={myAdvert._id} {...myAdvert} />
-        <Image width={200} src={photo} />
+        <Image width={200} src={photoUrl} fallback={placeholder} />
+        <Button type="primary" onClick={showModal}>
+          Delete Advert
+        </Button>
+        <Modal
+          title="Delete Advert"
+          visible={isModalVisible}
+          onOk={handleDelete}
+          onCancel={handleCancel}>
+          <p>Are you sure you want to delete this advert?</p>
+        </Modal>
       </div>
     );
   };
