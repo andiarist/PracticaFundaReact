@@ -6,17 +6,18 @@ import Layout from '../layout/Layout';
 import 'antd/dist/antd.css';
 import { Image } from 'antd';
 
-function AdvertPages() {
+function AdvertPage() {
   const [advert, setAdvert] = useState({});
   const [error, setError] = useState(null);
 
   const advertId = useParams().id;
+  console.log('advertId:', advertId);
 
   useEffect(() => {
     getAdvertDetail(advertId)
       .then(advert => setAdvert(advert))
       .catch(error => setError(error));
-  }, []);
+  }, [advertId]);
 
   const renderContent = () => {
     if (error) {
@@ -38,4 +39,4 @@ function AdvertPages() {
     </Layout>
   );
 }
-export default AdvertPages;
+export default AdvertPage;
