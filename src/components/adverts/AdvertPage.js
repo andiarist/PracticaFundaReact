@@ -12,9 +12,6 @@ function AdvertPage() {
   const [error, setError] = useState(null);
 
   const advertId = useParams().id;
-  //console.log('advertId:', advertId);
-  //const anuncio = getAdvertDetail(advertId);
-  //console.log(anuncio);
 
   useEffect(() => {
     getAdvertDetail(advertId)
