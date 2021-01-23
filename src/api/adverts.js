@@ -1,5 +1,7 @@
 import client from './client';
 
+const { REACT_APP_API_BASE_URL: baseURL } = process.env;
+
 export const getAdverts = busqueda => {
   let url = '/apiv1/adverts';
   if (busqueda) {

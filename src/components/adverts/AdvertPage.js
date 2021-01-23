@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAdvertDetail } from '../../api/adverts';
 import { useParams, Redirect } from 'react-router-dom';
 import Layout from '../layout/Layout';
+import Advert from './Advert';
 
 import 'antd/dist/antd.css';
 import { Image } from 'antd';
@@ -11,13 +12,15 @@ function AdvertPage() {
   const [error, setError] = useState(null);
 
   const advertId = useParams().id;
-  console.log('advertId:', advertId);
+  //console.log('advertId:', advertId);
+  //const anuncio = getAdvertDetail(advertId);
+  //console.log(anuncio);
 
   useEffect(() => {
     getAdvertDetail(advertId)
       .then(advert => setAdvert(advert))
       .catch(error => setError(error));
-  }, [advertId]);
+  }, []);
 
   const renderContent = () => {
     if (error) {
@@ -28,9 +31,16 @@ function AdvertPage() {
       return null;
     }
     const myAdvert = advert.result;
-    console.log('myAdvert:', myAdvert);
+    //console.log('myAdvert:', myAdvert);
+    const { _id, name, price, sale, tags, photo } = myAdvert;
 
-    return <div>{JSON.stringify(myAdvert)}</div>;
+    //return <div>{JSON.stringify(advert.result)}</div>;
+    return (
+      <div>
+        <Advert key={myAdvert._id} {...myAdvert} />
+        <Image width={200} src={photo} />
+      </div>
+    );
   };
 
   return (
