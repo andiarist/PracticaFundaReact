@@ -14,10 +14,15 @@ const urlBase = '/apiv1/adverts/';
 
 export const getAdvertDetail = advertId =>
   client.get(`${urlBase}${advertId}`).then(response => {
-    response.result.photoUrl = `${baseURL}${response.result.photo.replace(
-      /\\/g,
-      '/',
-    )}`;
+    if (response.result.photo) {
+      response.result.photoUrl = `${baseURL}${response.result.photo.replace(
+        /\\/g,
+        '/',
+      )}`;
+    } else {
+      response.result.photoUrl = '';
+    }
+
     return response;
   });
 

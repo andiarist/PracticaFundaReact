@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Layout from '../layout/Layout';
@@ -35,28 +35,39 @@ function NewAdvertPage() {
     setTags(tagsSelected);
   };
 
+  const readPhoto = file => {
+    console.log('file:', file);
+    if (file) {
+      const fileData = new FileReader();
+      fileData.onload = function () {
+        setPhoto(fileData.result);
+      };
+      fileData.readAsDataURL(file);
+    }
+  };
+
+  const handleChangePhoto = event => {
+    const file = event.target.files[0];
+    readPhoto(file);
+  };
+
   //console.log('tags:', tags);
 
   const setData = () => {
-    //console.log('name:', name);
-    //console.log('price:', price);
-    //console.log('sale:', sale);
-    //console.log('tags:', tags);
-    //{}
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('sale', sale);
+    formData.append('price', price);
+    formData.append('photo', photo);
+    tags.forEach((tag, index) => formData.append(`tags[${index}]`, tag));
 
-    return {
-      name: name,
-      sale: sale,
-      price: price,
-      photo: 'iugyu8g',
-      tags: tags,
-    };
+    return formData;
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log('setData', setData());
     const advert = setData();
+    console.log('advert:', advert);
 
     createNewAdvert(advert)
       .then(({ result: advert }) => {
@@ -71,6 +82,12 @@ function NewAdvertPage() {
     return (
       <div>
         <form onSubmit={handleSubmit}>
+          <input
+            type="file"
+            onChange={handleChangePhoto}
+            accept="image/png, image/jpeg"
+          />
+          <br />
           <input
             className="input-form"
             type="name"

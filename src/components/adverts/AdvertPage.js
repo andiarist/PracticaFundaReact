@@ -53,7 +53,7 @@ function AdvertPage() {
     const myAdvert = advert.result;
     console.log(myAdvert);
 
-    const { _id, name, price, sale, tags, photoUrl } = myAdvert;
+    const { _id, name, price, sale, tags, photo, photoUrl } = myAdvert;
 
     // console.log('url de la fotoURL:', photoUrl);
     return (
