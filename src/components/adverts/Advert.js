@@ -9,7 +9,7 @@ import './Advert.css';
 const Advert = ({ _id, name, price, sale, tags, history }) => (
   <article
     className="advert-card"
-    onClick={() => history.push(`/advert/${_id}`)}>
+    onClick={() => history.push(`/adverts/${_id}`)}>
     <Card title={name} hoverable="true" style={{ width: 270 }}>
       <p>Precio: {price} €</p>
       <p>{sale ? 'Se vende' : 'Se busca'}</p>

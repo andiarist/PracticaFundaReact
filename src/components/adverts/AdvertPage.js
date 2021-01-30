@@ -41,15 +41,17 @@ function AdvertPage() {
 
   const renderContent = () => {
     if (error) {
+      console.log('dentro del if de error', error);
       return <Redirect to="/404" />;
     }
     if (!advert) {
-      console.log('Dentro del if del no advert');
+      console.log('Dentro del if del no advert', advert);
       return null;
     }
     //return <div>{JSON.stringify(advert.result)}</div>;
 
     const myAdvert = advert.result;
+    console.log(myAdvert);
 
     const { _id, name, price, sale, tags, photoUrl } = myAdvert;
 

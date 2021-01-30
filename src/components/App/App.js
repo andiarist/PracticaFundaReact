@@ -31,16 +31,19 @@ function App({ initiallyLoggedUser }) {
             )}
           </Route>
           <PrivateRoute path="/" exact component={AdvertsPage} />
+
           <PrivateRoute path="/adverts" exact>
             <AdvertsPage />
           </PrivateRoute>
-          <PrivateRoute path="/advert/:id" exact component={AdvertPage} />
-          <PrivateRoute path="/adverts/new" exact>
-            <NewAdvertPage />
-          </PrivateRoute>
+
+          <PrivateRoute path="/adverts/new" exact component={NewAdvertPage} />
+
+          <PrivateRoute path="/adverts/:id" exact component={AdvertPage} />
+
           <PrivateRoute path="/404" exact>
             <NotFoundPage />
           </PrivateRoute>
+
           <PrivateRoute>
             <Redirect to="/404" />
           </PrivateRoute>

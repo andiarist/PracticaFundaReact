@@ -8,6 +8,7 @@ import Layout from '../layout/Layout';
 
 //import AdvertsFilter from './AdvertsFilter';
 
+import { Row, Col } from 'antd';
 import 'antd/dist/antd.css';
 
 function AdvertsPage() {
@@ -54,9 +55,13 @@ function AdvertsPage() {
         </section>
         <section>
           <h2>Lista de anuncios</h2>
-          {advertsList.map(advert => (
-            <Advert key={advert._id} {...advert} history={history} />
-          ))}
+          <Row>
+            {advertsList.map(advert => (
+              <Col span={8}>
+                <Advert key={advert._id} {...advert} history={history} />
+              </Col>
+            ))}
+          </Row>
         </section>
       </div>
     );

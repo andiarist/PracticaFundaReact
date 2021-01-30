@@ -23,6 +23,6 @@ export const getAdvertDetail = advertId =>
 
 export const deleteAdvert = advertId => client.delete(`${urlBase}${advertId}`);
 
-export const createNewAdvert = () => {
-  return client.post();
+export const createNewAdvert = advert => {
+  return client.post('/apiv1/adverts', advert);
 };
