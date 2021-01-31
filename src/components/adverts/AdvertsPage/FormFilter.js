@@ -1,73 +1,106 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Tipos from 'prop-types';
 
-import 'antd/dist/antd.css';
-import { Form, Select, Input, Radio, Button } from 'antd';
-const { Option } = Select;
-const formItemLayout = {
-  labelCol: {
-    span: 6,
-  },
-  wrapperCol: {
-    span: 14,
-  },
-};
+import SelectTags from '../SelectTags';
 
-const FormFilter = props => {
+const FormFilter = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [sale, setSale] = useState(null);
+  const [tags, setTags] = useState([]);
+
+  const handleChangeName = event => setName(event.target.value);
+  const handleChangePrice = event => setPrice(event.target.value);
+  const handleChangeSale = event => {
+    event.target.value === 'sell' ? setSale(true) : setSale(false);
+  };
+
+  const handleChangeTags = event => {
+    const options = event.target.options;
+    const tagsSelected = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        tagsSelected.push(options[i].value);
+      }
+    }
+
+    setTags(tagsSelected);
+  };
+
+  const setFilters = () => {
+    console.log('name:', name);
+    console.log('price:', price);
+    console.log('sale:', sale);
+    console.log('tags:', tags);
+
+    let search = '?';
+    if (name) {
+      search += `name=${name}&`;
+    }
+    if (sale) {
+      if (sale) {
+        search += `sale=true&`;
+      } else {
+        search += `sale=false&`;
+      }
+    }
+    if (tags) {
+      search += `tags=`;
+      tags.map(tag => (search += `${tag},`));
+    }
+    console.log('setFilters', search);
+
+    return search;
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    onSubmit(setFilters());
+  };
+
   return (
-    <Form name="adverts-form" {...formItemLayout} onFinish={props.onFinish}>
-      <Form.Item
-        label="Nombre"
+    <form name="adverts-form" onSubmit={handleSubmit}>
+      <input
+        className="input-form"
+        type="name"
         name="name"
-        rules={[
-          {
-            required: false,
-            message: 'Name',
-          },
-        ]}>
-        <Input />
-      </Form.Item>
-      <Form.Item
+        value={name}
+        onChange={handleChangeName}
+      />
+      <input
+        className="input-form"
+        type="number"
+        name="price"
+        value={price}
+        onChange={handleChangePrice}
+      />
+      <input
+        className=""
+        type="radio"
         name="sale"
-        label="Estado"
-        rules={[
-          {
-            required: false,
-            message: '',
-          },
-        ]}>
-        <Radio.Group>
-          <Radio.Button value="Sell">Comprar</Radio.Button>
-          <Radio.Button value="Buy">Vender</Radio.Button>
-          <Radio.Button value="All">Todos</Radio.Button>
-        </Radio.Group>
-      </Form.Item>
-      <Form.Item
-        name="tags"
-        label="Tags"
-        rules={[
-          {
-            required: false,
-            message: '',
-            type: 'array',
-          },
-        ]}>
-        <Select mode="multiple" placeholder="">
-          <Option value="lifestyle">lifestyle</Option>
-          <Option value="motor">motor</Option>
-          <Option value="mobile">mobile</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          span: 12,
-          offset: 6,
-        }}>
-        <Button type="primary" htmlType="submit">
-          Buscar
-        </Button>
-      </Form.Item>
-    </Form>
+        value="sell"
+        onChange={handleChangeSale}
+      />
+      Sale
+      <input
+        className=""
+        type="radio"
+        name="sale"
+        value="buy"
+        onChange={handleChangeSale}
+      />
+      Buy
+      <br />
+      <SelectTags onChange={handleChangeTags} value={tags} />
+      <br />
+      <button type="submit" className="">
+        Buscar
+      </button>
+    </form>
   );
+};
+FormFilter.propTypes = {
+  onSubmit: Tipos.func.isRequired,
 };
 
 export default FormFilter;

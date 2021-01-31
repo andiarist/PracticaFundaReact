@@ -14,32 +14,15 @@ import 'antd/dist/antd.css';
 
 function AdvertsPage({ history }) {
   const [adverts, setAdverts] = useState(null);
-  //const history = useHistory();
-  //let busqueda = '';
 
   useEffect(() => {
     getAdverts().then(setAdverts);
   }, []);
 
-  function onFinish(values) {
-    console.log('Valores del form: ', values);
-    let busqueda = '?';
-    if (values.name) {
-      busqueda += `name=${values.name}&`;
-    }
-    if (values.sale) {
-      if (values.sale === 'Sell') {
-        busqueda += `sale=true&`;
-      } else if (values.sale === 'Buy') {
-        busqueda += `sale=false&`;
-      }
-    }
-    if (values.tags) {
-      values.tags.map(tag => (busqueda += `tags=${tag}&`));
-    }
-    console.log('busqueda en advertsPage', busqueda);
-    console.log('busqueda:', busqueda);
-    getAdverts(busqueda).then(setAdverts);
+  function handleSubmit(search) {
+    console.log('Valores del form: ', search);
+
+    getAdverts(search).then(setAdverts);
   }
 
   const renderAdverts = () => {
@@ -67,7 +50,7 @@ function AdvertsPage({ history }) {
       <div className="advertsPage">
         <section>
           <h2>Bloque de filtrado</h2>
-          <FormFilter onFinish={onFinish} />
+          <FormFilter onSubmit={handleSubmit} />
         </section>
         <section>
           <h2>Lista de anuncios</h2>
