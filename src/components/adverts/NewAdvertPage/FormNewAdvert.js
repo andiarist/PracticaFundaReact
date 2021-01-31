@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Tipos from 'prop-types';
 
-import SelectTags from './SelectTags';
+import SelectTags from '../SelectTags';
 
 function FormNewAdvert({ onSubmit }) {
   const [name, setName] = useState('');

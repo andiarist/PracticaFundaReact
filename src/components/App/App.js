@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Tipos from 'prop-types';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from '../login/PrivateRoute';
 
 import LoginPage from '../login/LoginPage';
-import AdvertsPage from '../adverts/AdvertsPage';
+import AdvertsPage from '../adverts/AdvertsPage/AdvertsPage';
 import AdvertPage from '../adverts/AdvertPage';
-import NewAdvertPage from '../adverts/NewAdvertPage';
+import NewAdvertPage from '../adverts/NewAdvertPage/NewAdvertPage';
 import NotFoundPage from '../layout/NotFoundPage';
 
 export const AuthContext = React.createContext();
@@ -16,8 +16,7 @@ function App({ initiallyLoggedUser }) {
   const [loggedUser, setloggedUser] = useState(initiallyLoggedUser);
 
   const handleLogin = loggedUser => setloggedUser(loggedUser);
-  //const history = useHistory();
-  //console.log('loggedUser en App: ', loggedUser);
+
   return (
     <AuthContext.Provider
       value={{

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Layout from '../layout/Layout';
+import Layout from '../../layout/Layout';
 import FormNewAdvert from './FormNewAdvert';
 import './NewAdvertPage.css';
 
-import { createNewAdvert } from '../../api/adverts';
+import { createNewAdvert } from '../../../api/adverts';
 
 function NewAdvertPage() {
   const history = useHistory();
