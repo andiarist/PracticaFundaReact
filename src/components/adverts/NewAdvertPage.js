@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Layout from '../layout/Layout';
@@ -40,7 +40,8 @@ function NewAdvertPage() {
     if (file) {
       const fileData = new FileReader();
       fileData.onload = function () {
-        setPhoto(fileData.result);
+        let dataURL = fileData.result;
+        setPhoto(dataURL);
       };
       fileData.readAsDataURL(file);
     }
