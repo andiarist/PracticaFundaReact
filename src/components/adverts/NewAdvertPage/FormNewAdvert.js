@@ -13,7 +13,8 @@ function FormNewAdvert({ onSubmit }) {
   const handleChangeName = event => setName(event.target.value);
   const handleChangePrice = event => setPrice(event.target.value);
   const handleChangeSale = event => {
-    event.target.value === 'sell' ? setSale(true) : setSale(false);
+    event.target.value === 'sell' ? setSale('sale') : setSale('buy');
+    //console.log('sale:', sale);
   };
 
   const handleChangeTags = event => {
@@ -27,6 +28,7 @@ function FormNewAdvert({ onSubmit }) {
     setTags(tagsSelected);
   };
   //console.log(tags);
+  //console.log('sale:', sale);
 
   const handleChangePhoto = event => {
     const file = event.target.files[0];

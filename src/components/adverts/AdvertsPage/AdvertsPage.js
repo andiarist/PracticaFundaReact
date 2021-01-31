@@ -19,10 +19,10 @@ function AdvertsPage({ history }) {
     getAdverts().then(setAdverts);
   }, []);
 
-  function handleSubmit(search) {
-    console.log('Valores del form: ', search);
+  function handleSubmit(params) {
+    console.log('Valores del form: ', params);
 
-    getAdverts(search).then(setAdverts);
+    getAdverts(params).then(setAdverts);
   }
 
   const renderAdverts = () => {

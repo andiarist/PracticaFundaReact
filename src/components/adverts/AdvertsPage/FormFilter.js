@@ -12,7 +12,14 @@ const FormFilter = ({ onSubmit }) => {
   const handleChangeName = event => setName(event.target.value);
   const handleChangePrice = event => setPrice(event.target.value);
   const handleChangeSale = event => {
-    event.target.value === 'sell' ? setSale(true) : setSale(false);
+    if (event.target.value === 'sell') {
+      setSale('sale');
+    } else if (event.target.value === 'buy') {
+      setSale('buy');
+    } else {
+      setSale(null);
+    }
+    //event.target.value === 'sell' ? setSale('sale') : setSale('buy');
   };
 
   const handleChangeTags = event => {
@@ -33,24 +40,58 @@ const FormFilter = ({ onSubmit }) => {
     console.log('sale:', sale);
     console.log('tags:', tags);
 
-    let search = '?';
+    //let search = '?';
+    //if (name) {
+    //  search += `name=${name}&`;
+    //}
+    //if (sale) {
+    //  if (sale === 'sale') {
+    //    search += `sale=true&`;
+    //  } else {
+    //    search += `sale=false&`;
+    //  }
+    //}
+    //if (tags.length) {
+    //  search += `tags=`;
+    //  tags.map(tag => (search += `${tag},`));
+    //}
+    //console.log('setFilters', search);
+    //
+    //return search.substring(0, search.length - 1);
+
+    let params = {};
+
     if (name) {
-      search += `name=${name}&`;
+      params.name = name;
+    }
+    if (price) {
+      params.price = price;
     }
     if (sale) {
-      if (sale) {
-        search += `sale=true&`;
+      if (sale === 'sale') {
+        params.sale = true;
       } else {
-        search += `sale=false&`;
+        params.sale = false;
       }
     }
-    if (tags) {
-      search += `tags=`;
-      tags.map(tag => (search += `${tag},`));
+    if (tags.length) {
+      //let tagsQuery = '';
+      //tags.map(tag => (tagsQuery += `${tag},`));
+      //params.tags = tagsQuery.substring(0, tagsQuery.length - 1);
+      params.tags = tags.join(',');
+      console.log('params.tags:', params.tags);
     }
-    console.log('setFilters', search);
+    console.log('params:', params);
+    return params;
 
-    return search;
+    //let params = {
+    //  name: name,
+    //  price: price,
+    //  sale: sale,
+    //  tags: tags,
+    //};
+
+    //return search;
   };
 
   const handleSubmit = event => {
@@ -90,6 +131,14 @@ const FormFilter = ({ onSubmit }) => {
         onChange={handleChangeSale}
       />
       Buy
+      <input
+        className=""
+        type="radio"
+        name="sale"
+        value="all"
+        onChange={handleChangeSale}
+      />
+      All
       <br />
       <SelectTags onChange={handleChangeTags} value={tags} />
       <br />

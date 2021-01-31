@@ -2,18 +2,20 @@ import client from './client';
 
 const { REACT_APP_API_BASE_URL: baseURL } = process.env;
 
-export const getAdverts = busqueda => {
-  let url = '/apiv1/adverts';
-  if (busqueda) {
-    url += `${busqueda}`;
-  }
-  return client.get(url);
+const url = '/apiv1/adverts';
+
+export const getAdverts = params => {
+  //let url = '/apiv1/adverts';
+  //if (busqueda) {
+  //  url += `${busqueda}`;
+  //}
+  return client.get(url, { params });
 };
 
-const urlBase = '/apiv1/adverts/';
+//const urlBase = '/apiv1/adverts/';
 
 export const getAdvertDetail = advertId =>
-  client.get(`${urlBase}${advertId}`).then(response => {
+  client.get(`${url}/${advertId}`).then(response => {
     if (response.result.photo) {
       response.result.photoUrl = `${baseURL}${response.result.photo.replace(
         /\\/g,
@@ -26,10 +28,10 @@ export const getAdvertDetail = advertId =>
     return response;
   });
 
-export const deleteAdvert = advertId => client.delete(`${urlBase}${advertId}`);
+export const deleteAdvert = advertId => client.delete(`${url}/${advertId}`);
 
 export const createNewAdvert = advert => {
-  return client.post('/apiv1/adverts', advert);
+  return client.post(url, advert);
 };
 
-export const getTags = () => client.get(`${urlBase}tags`);
+export const getTags = () => client.get(`${url}/tags`);
