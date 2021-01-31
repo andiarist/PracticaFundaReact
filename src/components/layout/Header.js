@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import './layout.css';
 
-import storage from '../../utils/storage';
-
-import { AuthContext } from '../App/App';
+import { logout } from '../../api/auth';
 
 import 'antd/dist/antd.css';
 import { Modal, Button } from 'antd';
@@ -12,9 +10,7 @@ import { Modal, Button } from 'antd';
 function Header({ ...props }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { isLogged, history } = useContext(AuthContext);
-  console.log(isLogged);
-  console.log(history);
+  const history = useHistory();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -22,10 +18,8 @@ function Header({ ...props }) {
 
   const handleLogout = () => {
     setIsModalVisible(false);
-    // hacemos logout:
-    // storage.remove
-    storage.remove('auth');
-    // redirect login
+    logout();
+
     history.push('/login');
   };
 

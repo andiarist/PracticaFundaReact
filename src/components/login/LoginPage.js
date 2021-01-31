@@ -15,7 +15,7 @@ class LoginPage extends React.Component {
   };
 
   handleChangeCheckbox = event => {
-    console.log('valor de checked: ', event.target.checked);
+    //console.log('valor de checked: ', event.target.checked);
     this.setState(state => ({
       form: { ...state.form, remember: event.target.checked },
     }));
@@ -33,13 +33,13 @@ class LoginPage extends React.Component {
     const { form: credentials } = this.state;
     try {
       const loggedUser = await login(credentials);
-      console.log('loggedUser en LoginPage:', loggedUser);
+      //console.log('loggedUser en LoginPage:', loggedUser);
       onLogin(loggedUser);
       if (loggedUser) {
-        console.log('Usuario logueado ok');
+        //console.log('Usuario logueado ok');
         history.push('/adverts');
       } else {
-        console.log('Usuario no logueado ');
+        //console.log('Usuario no logueado ');
         this.setState({ error: true });
       }
     } catch (er) {}
@@ -93,6 +93,6 @@ class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
   onLogin: Tipos.func.isRequired,
-  location: Tipos.object.isRequired,
+  history: Tipos.object.isRequired,
 };
 export default LoginPage;

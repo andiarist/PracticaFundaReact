@@ -51,7 +51,7 @@ function AdvertPage() {
     //return <div>{JSON.stringify(advert.result)}</div>;
 
     const myAdvert = advert.result;
-    console.log(myAdvert);
+    //console.log(myAdvert);
 
     const { _id, name, price, sale, tags, photo, photoUrl } = myAdvert;
 

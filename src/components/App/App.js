@@ -16,23 +16,18 @@ function App({ initiallyLoggedUser }) {
   const [loggedUser, setloggedUser] = useState(initiallyLoggedUser);
 
   const handleLogin = loggedUser => setloggedUser(loggedUser);
-  const history = useHistory();
+  //const history = useHistory();
   //console.log('loggedUser en App: ', loggedUser);
   return (
     <AuthContext.Provider
       value={{
         isLogged: loggedUser,
-        history: history,
       }}>
       <div className="App">
         <Switch>
           <Route path="/login" exact>
-            {({ history, location }) => (
-              <LoginPage
-                onLogin={handleLogin}
-                history={history}
-                location={location}
-              />
+            {({ history }) => (
+              <LoginPage onLogin={handleLogin} history={history} />
             )}
           </Route>
           <PrivateRoute path="/" exact component={AdvertsPage} />
