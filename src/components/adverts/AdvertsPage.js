@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import Tipos from 'prop-types';
+//import { useHistory } from 'react-router-dom';
 
 import { getAdverts } from '../../api/adverts';
 import Advert from './Advert';
@@ -11,9 +12,9 @@ import Layout from '../layout/Layout';
 import { Row, Col } from 'antd';
 import 'antd/dist/antd.css';
 
-function AdvertsPage() {
+function AdvertsPage({ history }) {
   const [adverts, setAdverts] = useState(null);
-  const history = useHistory();
+  //const history = useHistory();
   //let busqueda = '';
 
   useEffect(() => {
@@ -73,5 +74,9 @@ function AdvertsPage() {
     </Layout>
   );
 }
+
+AdvertsPage.propTypes = {
+  history: Tipos.object.isRequired,
+};
 
 export default AdvertsPage;

@@ -93,5 +93,6 @@ class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
   onLogin: Tipos.func.isRequired,
+  location: Tipos.object.isRequired,
 };
 export default LoginPage;

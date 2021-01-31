@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Tipos from 'prop-types';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import PrivateRoute from '../login/PrivateRoute';
 
 import LoginPage from '../login/LoginPage';
@@ -16,9 +16,14 @@ function App({ initiallyLoggedUser }) {
   const [loggedUser, setloggedUser] = useState(initiallyLoggedUser);
 
   const handleLogin = loggedUser => setloggedUser(loggedUser);
+  const history = useHistory();
   //console.log('loggedUser en App: ', loggedUser);
   return (
-    <AuthContext.Provider value={{ isLogged: loggedUser }}>
+    <AuthContext.Provider
+      value={{
+        isLogged: loggedUser,
+        history: history,
+      }}>
       <div className="App">
         <Switch>
           <Route path="/login" exact>
@@ -32,13 +37,15 @@ function App({ initiallyLoggedUser }) {
           </Route>
           <PrivateRoute path="/" exact component={AdvertsPage} />
 
-          <PrivateRoute path="/adverts" exact>
-            <AdvertsPage />
+          <PrivateRoute path="/adverts" exact component={AdvertsPage} />
+
+          <PrivateRoute path="/adverts/new" exact>
+            <NewAdvertPage />
           </PrivateRoute>
 
-          <PrivateRoute path="/adverts/new" exact component={NewAdvertPage} />
-
-          <PrivateRoute path="/adverts/:id" exact component={AdvertPage} />
+          <PrivateRoute path="/adverts/:id" exact>
+            <AdvertPage />
+          </PrivateRoute>
 
           <PrivateRoute path="/404" exact>
             <NotFoundPage />

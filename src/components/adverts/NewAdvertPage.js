@@ -35,21 +35,21 @@ function NewAdvertPage() {
     setTags(tagsSelected);
   };
 
-  const readPhoto = file => {
-    console.log('file:', file);
-    if (file) {
-      const fileData = new FileReader();
-      fileData.onload = function () {
-        let dataURL = fileData.result;
-        setPhoto(dataURL);
-      };
-      fileData.readAsDataURL(file);
-    }
-  };
+  //const readPhoto = file => {
+  //  console.log('file:', file);
+  //  if (file) {
+  //    const fileData = new FileReader();
+  //    fileData.onload = function () {
+  //      let dataURL = fileData.result;
+  //      setPhoto(dataURL);
+  //    };
+  //    fileData.readAsDataURL(file);
+  //  }
+  //};
 
   const handleChangePhoto = event => {
     const file = event.target.files[0];
-    readPhoto(file);
+    setPhoto(file);
   };
 
   //console.log('tags:', tags);
