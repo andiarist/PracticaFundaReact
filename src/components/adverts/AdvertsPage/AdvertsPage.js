@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Tipos from 'prop-types';
-//import { useHistory } from 'react-router-dom';
 
 import { getAdverts } from '../../../api/adverts';
 import Advert from '../Advert';
 import FormFilter from './FormFilter';
 import Layout from '../../layout/Layout';
-
-//import AdvertsFilter from './AdvertsFilter';
 
 import { Row, Col, Empty } from 'antd';
 import 'antd/dist/antd.css';

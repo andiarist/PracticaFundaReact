@@ -1,30 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './layout.css';
 
 import { logout } from '../../api/auth';
-
-import 'antd/dist/antd.css';
-import { Modal, Button } from 'antd';
+import ConfirmButton from '../tools/ConfirmButton';
 
 function Header({ ...props }) {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   const history = useHistory();
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
   const handleLogout = () => {
-    setIsModalVisible(false);
     logout();
-
     history.push('/login');
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
   };
   return (
     <header className="header" {...props}>
@@ -41,16 +27,14 @@ function Header({ ...props }) {
           </li>
         </ul>
       </nav>
-      <Button type="primary" onClick={showModal}>
+      <ConfirmButton
+        acceptAction={handleLogout}
+        confirmProps={{
+          title: 'Logout',
+          message: 'Are you sure you want to logout?',
+        }}>
         Logout
-      </Button>
-      <Modal
-        title="Delete Advert"
-        visible={isModalVisible}
-        onOk={handleLogout}
-        onCancel={handleCancel}>
-        <p>Are you sure you want to logout?</p>
-      </Modal>
+      </ConfirmButton>
     </header>
   );
 }

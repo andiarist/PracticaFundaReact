@@ -7,7 +7,8 @@ import Advert from './Advert';
 import placeholder from '../../assets/placeholder.png';
 
 import 'antd/dist/antd.css';
-import { Image, Modal, Button } from 'antd';
+import { Image } from 'antd';
+import ConfirmButton from '../tools/ConfirmButton';
 
 function AdvertPage() {
   const [advert, setAdvert] = useState(null);
@@ -17,20 +18,10 @@ function AdvertPage() {
   const advertId = useParams().id;
   const history = useHistory();
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
   const handleDelete = () => {
-    setIsModalVisible(false);
     deleteAdvert(advertId).then(() => {
-      console.log('dentro del then de deleteAdvert');
       history.push('/');
     });
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
   };
 
   useEffect(() => {
@@ -48,29 +39,24 @@ function AdvertPage() {
       console.log('Dentro del if del no advert', advert);
       return null;
     }
-    //return <div>{JSON.stringify(advert.result)}</div>;
 
     const myAdvert = advert.result;
-    //console.log(myAdvert);
 
     //const { _id, name, price, sale, tags, photo, photoUrl } = myAdvert;
     const { photoUrl } = myAdvert;
 
-    // console.log('url de la fotoURL:', photoUrl);
     return (
       <div>
         <Advert key={myAdvert._id} {...myAdvert} />
         <Image width={200} src={photoUrl} fallback={placeholder} />
-        <Button type="primary" onClick={showModal}>
+        <ConfirmButton
+          acceptAction={handleDelete}
+          confirmProps={{
+            title: 'Delete Advert',
+            message: 'Are you sure you want to delete this advert?',
+          }}>
           Delete Advert
-        </Button>
-        <Modal
-          title="Delete Advert"
-          visible={isModalVisible}
-          onOk={handleDelete}
-          onCancel={handleCancel}>
-          <p>Are you sure you want to delete this advert?</p>
-        </Modal>
+        </ConfirmButton>
       </div>
     );
   };

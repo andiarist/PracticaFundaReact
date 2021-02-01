@@ -5,14 +5,8 @@ const { REACT_APP_API_BASE_URL: baseURL } = process.env;
 const url = '/apiv1/adverts';
 
 export const getAdverts = params => {
-  //let url = '/apiv1/adverts';
-  //if (busqueda) {
-  //  url += `${busqueda}`;
-  //}
   return client.get(url, { params });
 };
-
-//const urlBase = '/apiv1/adverts/';
 
 export const getAdvertDetail = advertId =>
   client.get(`${url}/${advertId}`).then(response => {

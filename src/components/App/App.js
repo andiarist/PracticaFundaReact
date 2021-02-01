@@ -12,7 +12,6 @@ import NotFoundPage from '../layout/NotFoundPage';
 export const AuthContext = React.createContext();
 
 function App({ initiallyLoggedUser }) {
-  //console.log('initiallyLoggedUser al principio de App: ', initiallyLoggedUser);
   const [loggedUser, setloggedUser] = useState(initiallyLoggedUser);
 
   const handleLogin = loggedUser => setloggedUser(loggedUser);
