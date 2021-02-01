@@ -3,6 +3,9 @@ import Tipos from 'prop-types';
 
 import SelectTags from '../SelectTags';
 
+import 'antd/dist/antd.css';
+import { Slider } from 'antd';
+
 const FormFilter = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -10,7 +13,8 @@ const FormFilter = ({ onSubmit }) => {
   const [tags, setTags] = useState([]);
 
   const handleChangeName = event => setName(event.target.value);
-  const handleChangePrice = event => setPrice(event.target.value);
+  const handleChangePrice = value => setPrice(value);
+
   const handleChangeSale = event => {
     if (event.target.value === 'sell') {
       setSale('sale');
@@ -19,7 +23,6 @@ const FormFilter = ({ onSubmit }) => {
     } else {
       setSale(null);
     }
-    //event.target.value === 'sell' ? setSale('sale') : setSale('buy');
   };
 
   const handleChangeTags = event => {
@@ -40,32 +43,14 @@ const FormFilter = ({ onSubmit }) => {
     console.log('sale:', sale);
     console.log('tags:', tags);
 
-    //let search = '?';
-    //if (name) {
-    //  search += `name=${name}&`;
-    //}
-    //if (sale) {
-    //  if (sale === 'sale') {
-    //    search += `sale=true&`;
-    //  } else {
-    //    search += `sale=false&`;
-    //  }
-    //}
-    //if (tags.length) {
-    //  search += `tags=`;
-    //  tags.map(tag => (search += `${tag},`));
-    //}
-    //console.log('setFilters', search);
-    //
-    //return search.substring(0, search.length - 1);
-
     let params = {};
 
     if (name) {
       params.name = name;
     }
     if (price) {
-      params.price = price;
+      params.price = price.join('-');
+      console.log('params.price:', params.price);
     }
     if (sale) {
       if (sale === 'sale') {
@@ -75,23 +60,11 @@ const FormFilter = ({ onSubmit }) => {
       }
     }
     if (tags.length) {
-      //let tagsQuery = '';
-      //tags.map(tag => (tagsQuery += `${tag},`));
-      //params.tags = tagsQuery.substring(0, tagsQuery.length - 1);
       params.tags = tags.join(',');
       console.log('params.tags:', params.tags);
     }
     console.log('params:', params);
     return params;
-
-    //let params = {
-    //  name: name,
-    //  price: price,
-    //  sale: sale,
-    //  tags: tags,
-    //};
-
-    //return search;
   };
 
   const handleSubmit = event => {
@@ -108,12 +81,13 @@ const FormFilter = ({ onSubmit }) => {
         value={name}
         onChange={handleChangeName}
       />
-      <input
-        className="input-form"
-        type="number"
-        name="price"
-        value={price}
+      <Slider
+        range
+        defaultValue={[200, 5000]}
         onChange={handleChangePrice}
+        min={0}
+        max={10000}
+        tooltipPlacement="bottom"
       />
       <input
         className=""
