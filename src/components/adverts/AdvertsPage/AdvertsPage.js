@@ -17,8 +17,6 @@ function AdvertsPage({ history }) {
   }, []);
 
   function handleSubmit(params) {
-    console.log('Valores del form: ', params);
-
     getAdverts(params).then(setAdverts);
   }
 

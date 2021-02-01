@@ -38,11 +38,6 @@ const FormFilter = ({ onSubmit }) => {
   };
 
   const setFilters = () => {
-    console.log('name:', name);
-    console.log('price:', price);
-    console.log('sale:', sale);
-    console.log('tags:', tags);
-
     let params = {};
 
     if (name) {
@@ -50,7 +45,6 @@ const FormFilter = ({ onSubmit }) => {
     }
     if (price) {
       params.price = price.join('-');
-      console.log('params.price:', params.price);
     }
     if (sale) {
       if (sale === 'sale') {
@@ -61,9 +55,7 @@ const FormFilter = ({ onSubmit }) => {
     }
     if (tags.length) {
       params.tags = tags.join(',');
-      console.log('params.tags:', params.tags);
     }
-    console.log('params:', params);
     return params;
   };
 

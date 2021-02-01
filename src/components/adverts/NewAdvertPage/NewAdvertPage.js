@@ -13,7 +13,6 @@ function NewAdvertPage() {
   const handleSubmit = advert => {
     createNewAdvert(advert)
       .then(({ result: advert }) => {
-        console.log(advert);
         history.push(`/adverts/${advert._id}`);
       })
       .catch(error => console.log(error));

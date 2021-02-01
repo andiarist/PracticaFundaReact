@@ -32,11 +32,9 @@ function AdvertPage() {
 
   const renderContent = () => {
     if (error) {
-      console.log('dentro del if de error', error);
       return <Redirect to="/404" />;
     }
     if (!advert) {
-      console.log('Dentro del if del no advert', advert);
       return null;
     }
 
